@@ -49,7 +49,7 @@ class T12sTeamRotor implements Serializable {
     if (rotationResultsResponse.statusCode() == 200) {
       return jsonParser.parseText(rotationResultsResponse.body()) as List<Map<String, ?>>
     } else {
-      step.echo("can not execute operation fetchRotationRunResults")
+      step.echo("can not execute operation fetchRotationRunResults, statusCode: " + rotationResultsResponse.statusCode())
       step.echo(rotationResultsResponse.body())
       throw new IllegalStateException("can not execute operation fetchRotationRunResults: \n" + rotationResultsResponse.body())
     }
@@ -69,7 +69,7 @@ class T12sTeamRotor implements Serializable {
     if (rotateResponse.statusCode() == 200) {
       return jsonParser.parseText(rotateResponse.body()) as Map<String, ?>
     } else {
-      step.echo("can not execute operation internalRotate")
+      step.echo("can not execute operation internalRotate, statusCode: " + rotateResponse.statusCode())
       step.echo(rotateResponse.body())
       throw new IllegalStateException("can not execute operation internalRotate: \n" + rotateResponse.body())
     }
