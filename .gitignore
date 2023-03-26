@@ -1,0 +1,6 @@
+**/manifest.json
+.idea
+*.pem
+.terraform
+*.iml
+target
