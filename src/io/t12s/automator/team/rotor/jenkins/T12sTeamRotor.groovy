@@ -37,7 +37,7 @@ class T12sTeamRotor implements Serializable {
 
   List<Map<String, ?>> fetchRotationRunResults(final String rotationId) {
     final def rotationResultsUri = URI.create(baseUri +
-      "/" + encode(teamId) + "/rotation/" + encode(rotationId) +
+      "/team/" + encode(teamId) + "/rotation/" + encode(rotationId) +
       "/runResults?secret=" + encode(teamSecret))
 
     final def rotationResultsRequest = HttpRequest.newBuilder(rotationResultsUri).
@@ -57,12 +57,12 @@ class T12sTeamRotor implements Serializable {
 
   private Map<String, ?> internalRotate(final String rotationId, final String runMode) {
     final def rotateUri = URI.create(baseUri +
-      "/" + encode(teamId) + "/rotation/" + encode(rotationId) +
+      "/team/" + encode(teamId) + "/rotation/" + encode(rotationId) +
       "?secret=" + encode(teamSecret) + "&saveMode=" + encode(runMode))
 
     final def rotateRequest = HttpRequest.newBuilder(rotateUri).
       timeout(timeoutDuration).
-      POST(HttpRequest.BodyPublishers.ofString("")).
+      POST(HttpRequest.BodyPublishers.ofByteArray(new byte[0])).
       build()
 
     final rotateResponse = httpClient.send(rotateRequest, HttpResponse.BodyHandlers.ofString())
