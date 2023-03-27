@@ -62,7 +62,7 @@ class T12sTeamRotor implements Serializable {
 
     final def rotateRequest = HttpRequest.newBuilder(rotateUri).
       timeout(timeoutDuration).
-      POST(HttpRequest.BodyPublishers.ofByteArray(new byte[0])).
+      POST(HttpRequest.BodyPublishers.noBody()).
       build()
 
     final rotateResponse = httpClient.send(rotateRequest, HttpResponse.BodyHandlers.ofString())
