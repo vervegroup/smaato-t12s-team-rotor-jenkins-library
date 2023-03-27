@@ -42,6 +42,7 @@ class T12sTeamRotor implements Serializable {
 
     final def rotationResultsRequest = HttpRequest.newBuilder(rotationResultsUri).
       timeout(timeoutDuration).
+      header("accept", "application/json").
       GET().
       build()
 
@@ -62,6 +63,7 @@ class T12sTeamRotor implements Serializable {
 
     final def rotateRequest = HttpRequest.newBuilder(rotateUri).
       timeout(timeoutDuration).
+      header("accept", "application/json").
       POST(HttpRequest.BodyPublishers.noBody()).
       build()
 
