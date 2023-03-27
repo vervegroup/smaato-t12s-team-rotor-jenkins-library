@@ -59,7 +59,7 @@ class T12sTeamRotor implements Serializable {
   private Map<String, ?> internalRotate(final String rotationId, final String runMode) {
     final def rotateUri = URI.create(baseUri +
       "/team/" + encode(teamId) + "/rotation/" + encode(rotationId) +
-      "?secret=" + encode(teamSecret) + "&saveMode=" + encode(runMode))
+      "/runResults?secret=" + encode(teamSecret) + "&saveMode=" + encode(runMode))
 
     final def rotateRequest = HttpRequest.newBuilder(rotateUri).
       timeout(timeoutDuration).
