@@ -1,7 +1,7 @@
 package io.t12s.automator.team.rotor.jenkins
 
 
-import groovy.json.JsonSlurper
+import groovy.json.JsonSlurperClassic
 
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -17,7 +17,7 @@ class T12sTeamRotor implements Serializable {
   private final String baseUri
   private final String teamId
   private final String teamSecret
-  private final JsonSlurper jsonParser
+  private final JsonSlurperClassic jsonParser
   private final HttpClient httpClient
   private final def step
   private final Duration timeoutDuration = Duration.ofSeconds(45)
@@ -27,7 +27,7 @@ class T12sTeamRotor implements Serializable {
     this.teamId = teamId
     this.teamSecret = teamSecret
     this.step = step
-    jsonParser = new JsonSlurper()
+    jsonParser = new JsonSlurperClassic()
     httpClient = HttpClient.newHttpClient()
   }
 
