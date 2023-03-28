@@ -1,18 +1,23 @@
-t12sRotationRun: execute a rotation and saves the result
+# t12sRotationFetchResults
+
+fetchs all rotation results
+
 
 Parameter is a map of String to String, example:
+```groovy
 final def parameter = [
     'teamId': 'your-team-id',
     'teamSecret': 'your team secret',
-    'rotationId': 'your-rotation-id_and-not-rotation-name'
+    'rotationId': 'your-rotation-id_and-not-rotation-name',
     'verbose': 'true|false' // the key 'verbose' is optional
 ]
+```
 
 
+Return type is a list of map with the following structure
 
-Return type is a map with the following structure
-
-{
+```json
+[{
   "createdAt": "2023-03-18T11:50:01.248496Z",
   "deleteAt": "2023-05-17T11:50:01.248496Z",
   "id": "ROTATION_CONFIG#6492503e-e872-4d34-aca1-72b63b1db528#RUN_RESULT#2023-03-18T11:50:01.248496Z#adam",
@@ -29,4 +34,5 @@ Return type is a map with the following structure
     "RotationRunner": "RandomRotationRunner"
   },
   "teamId": "t12s-core-t1"
-}
+}]
+```
