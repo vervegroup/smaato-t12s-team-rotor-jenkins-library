@@ -1,6 +1,7 @@
-# t12sRotationRun
+# t12sRotationRunOnce
 
-execute a rotation and saves the result.
+execute a rotation only once for a given token and saves the result.
+If you run this step multiple times with the same parameter, the result will be always the same.
 
 Parameter is a map of String to String, example:
 ```groovy
@@ -8,6 +9,7 @@ final def parameter = [
     'teamId': 'your-team-id',
     'teamSecret': 'your team secret',
     'rotationId': 'your-rotation-id_and-not-rotation-name',
+    'token': 'release-23.51',
     'verbose': 'true|false' // the key 'verbose' is optional
 ]
 ```

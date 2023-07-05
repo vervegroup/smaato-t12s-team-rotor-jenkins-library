@@ -56,6 +56,18 @@ class T12sTeamRotor implements Serializable {
     }
   }
 
+  Map<String, ?> rotate(final String rotationId) {
+    return internalRotate(rotationId, 'Save')
+  }
+
+  Map<String, ?> rotateDryRun(final String rotationId) {
+    return internalRotate(rotationId, 'DryRun')
+  }
+
+  Map<String, ?> rotateOnce(final String rotationId, final String token) {
+    return internalRotateOnce(rotationId, token)
+  }
+
   private Map<String, ?> internalRotate(final String rotationId, final String runMode) {
     final def rotateUri = URI.create(baseUri +
       "/team/" + encode(teamId) + "/rotation/" + encode(rotationId) +
@@ -67,6 +79,26 @@ class T12sTeamRotor implements Serializable {
       POST(HttpRequest.BodyPublishers.noBody()).
       build()
 
+    return executeHttpRequest(rotateRequest)
+
+  }
+
+  private Map<String, ?> internalRotateOnce(final String rotationId, final String token) {
+    final def rotateUri = URI.create(baseUri +
+      "/team/" + encode(teamId) + "/rotation/" + encode(rotationId) +
+      "/runResults/" + encode(token) + "?secret=" + encode(teamSecret))
+
+    final def rotateRequest = HttpRequest.newBuilder(rotateUri).
+      timeout(timeoutDuration).
+      header("accept", "application/json").
+      PUT(HttpRequest.BodyPublishers.noBody()).
+      build()
+
+    return executeHttpRequest(rotateRequest)
+
+  }
+
+  private Map<String, ?> executeHttpRequest(final HttpRequest rotateRequest) {
     final rotateResponse = httpClient.send(rotateRequest, HttpResponse.BodyHandlers.ofString())
     if (rotateResponse.statusCode() == 200) {
       return jsonParser.parseText(rotateResponse.body()) as Map<String, ?>
@@ -75,15 +107,6 @@ class T12sTeamRotor implements Serializable {
       step.echo(rotateResponse.body())
       throw new IllegalStateException("can not execute operation internalRotate: \n" + rotateResponse.body())
     }
-
-  }
-
-  Map<String, ?> rotate(final String rotationId) {
-    return internalRotate(rotationId, 'Save')
-  }
-
-  Map<String, ?> rotateDryRun(final String rotationId) {
-    return internalRotate(rotationId, 'DryRun')
   }
 
   private static String encode(final String text) {
