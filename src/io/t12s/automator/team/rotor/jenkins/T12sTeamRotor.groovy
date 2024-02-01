@@ -12,7 +12,7 @@ import java.time.Duration
 class T12sTeamRotor implements Serializable {
   @Serial
   static final long serialVersionUID = 1L
-  private static final String BASE_URI_STRING = "https://team-api.t12s-automator.app/resources"
+  private static final String BASE_URI_STRING = "https://t12s-rotor-api.smaatolabs.net/resources"
 
   private final String baseUri
   private final String teamId
